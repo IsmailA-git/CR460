@@ -57,7 +57,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                = "vm-cr460-ismail-east"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  size                = "Standard_B2s"
+  size                = "Standard_B2s_v2"
   admin_username      = "azureuser"
   admin_password      = "TempPass1234!"
   disable_password_authentication = false
