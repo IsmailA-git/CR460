@@ -54,12 +54,12 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "vm-cr460-ismail-east"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  size                = "Standard_B2s_v2"
-  admin_username      = "azureuser"
-  admin_password      = "TempPass1234!"
+  name                            = "vm-cr460-ismail-east"
+  resource_group_name             = azurerm_resource_group.rg.name
+  location                        = azurerm_resource_group.rg.location
+  size                            = "Standard_B2s_v2"
+  admin_username                  = "azureuser"
+  admin_password                  = "TempPass1234!"
   disable_password_authentication = false
 
   network_interface_ids = [
@@ -79,4 +79,30 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   computer_name = "vmcr460east"
+}
+
+resource "azurerm_container_group" "aci" {
+  name                = "aci-cr460-ismail-east"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  ip_address_type     = "Public"
+  dns_name_label      = "aci-cr460-ismail-east-73124"
+  os_type             = "Linux"
+
+  container {
+    name   = "hello"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
+    cpu    = "0.5"
+    memory = "1.5"
+
+    ports {
+      port     = 80
+      protocol = "TCP"
+    }
+  }
+
+  exposed_port {
+    port     = 80
+    protocol = "TCP"
+  }
 }
