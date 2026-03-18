@@ -15,7 +15,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg" {
   name     = "rg-cr460-ismail"
-  location = "Canada Central"
+  location = "Canada East"
 }
 
 resource "azurerm_virtual_network" "vnet" {
